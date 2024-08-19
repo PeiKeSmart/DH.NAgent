@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net45;net461;netcoreapp3.1;net7.0;net8.0</TargetFrameworks>
+    <VersionPrefix>1.0</VersionPrefix>
+    <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
+    <Version>$(VersionPrefix).$(VersionSuffix)</Version>
+    <FileVersion>$(Version)</FileVersion>
+    <AssemblyVersion>$(VersionPrefix).*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
+    <OutputPath>..\Bin\Test\</OutputPath>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>1701;1702;NU5104;NETSDK1138;CS7035</NoWarn>
+    <!--aot发布-->
+    <!--<PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>-->
+    <!--aot发布-->
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DH.NAgent\DH.NAgent.csproj" />
+  </ItemGroup>
+</Project>
