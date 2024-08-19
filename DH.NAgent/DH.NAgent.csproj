@@ -61,7 +61,7 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'!='net40'">
-    <PackageReference Include="NewLife.Core" Version="10.10.2024.0803" />
+  <ItemGroup>
+    <PackageReference Include="DH.NCore" Version="3.7.2024.8190001" />
   </ItemGroup>
 </Project>
