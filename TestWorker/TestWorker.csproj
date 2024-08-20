@@ -20,7 +20,10 @@
 
   <ItemGroup>
     <Using Remove="Microsoft.Extensions.Logging" />
-    <PackageReference Include="NewLife.Stardust.Extensions" Version="3.0.2024.806" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DH.NStardust.Extensions" Version="3.7.2024.820" />
   </ItemGroup>
 
   <ItemGroup>

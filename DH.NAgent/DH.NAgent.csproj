@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  
+
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <AssemblyName>DH.NAgent</AssemblyName>
@@ -21,7 +21,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>1701;1702;NU5104;NETSDK1138;CS7035</NoWarn>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <!--<IsPackable>true</IsPackable>-->
     <PackageId>$(AssemblyName)</PackageId>
@@ -62,6 +62,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DH.NCore" Version="3.7.2024.8190001" />
+    <PackageReference Include="DH.NCore" Version="3.7.2024.820" />
   </ItemGroup>
 </Project>
