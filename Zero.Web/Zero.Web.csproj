@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="DH.NCube.Core" Version="3.7.2024.902-beta0137" />
-    <PackageReference Include="DH.NStardust" Version="3.7.2024.829-beta0138" />
+    <PackageReference Include="DH.NStardust" Version="3.7.2024.903-beta0229" />
   </ItemGroup>
 
   <ItemGroup>
