@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.NCode" Version="3.91.2024.1011-beta0131" />
-    <PackageReference Include="DH.NStardust" Version="3.91.2024.1010-beta0622" />
+    <PackageReference Include="DH.NCode" Version="3.91.2024.1012-beta0255" />
+    <PackageReference Include="DH.NStardust" Version="3.91.2024.1012-beta0249" />
   </ItemGroup>
 
   <ItemGroup>
