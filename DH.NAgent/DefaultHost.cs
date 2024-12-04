@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using NewLife.Agent.Models;
 using NewLife.Log;
 
 namespace NewLife.Agent;
@@ -34,13 +35,9 @@ public class DefaultHost : DisposeBase, IHost
     public virtual Boolean IsRunning(String serviceName) => false;
 
     /// <summary>安装服务</summary>
-    /// <param name="serviceName">服务名</param>
-    /// <param name="displayName">显示名</param>
-    /// <param name="fileName">文件路径</param>
-    /// <param name="arguments">命令参数</param>
-    /// <param name="description">描述信息</param>
+    /// <param name="service">服务</param>
     /// <returns></returns>
-    public virtual Boolean Install(String serviceName, String displayName, String fileName, String arguments, String description) => false;
+    public virtual Boolean Install(ServiceModel service) => false;
 
     /// <summary>卸载服务</summary>
     /// <param name="serviceName">服务名</param>

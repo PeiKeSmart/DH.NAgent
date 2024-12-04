@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-
 using Microsoft.Win32.SafeHandles;
-
 using NewLife.Log;
 
 namespace NewLife.Agent.Windows;
