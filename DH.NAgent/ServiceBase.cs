@@ -180,7 +180,7 @@ public abstract class ServiceBase : DisposeBase
     protected virtual void ProcessMenu(String[] args)
     {
         var service = this;
-        var name = ServiceName;
+        //var name = ServiceName;
         //var args = Environment.GetCommandLineArgs();
         while (true)
         {
