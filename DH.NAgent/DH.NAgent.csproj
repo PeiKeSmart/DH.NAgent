@@ -8,7 +8,7 @@
     <Description>应用程序注册为系统服务，支持Windows/Linux</Description>
     <Company>湖北登灏科技有限公司</Company>
     <Copyright>©2020-2025 湖北登灏科技有限公司</Copyright>
-    <VersionPrefix>4.13</VersionPrefix>
+    <VersionPrefix>4.15</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
     <FileVersion>$(Version)</FileVersion>
@@ -64,6 +64,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DH.NCore" Version="4.14.2025.926-beta1057" />
+    <PackageReference Include="DH.NCore" Version="4.15.2025.1002-beta0240" />
   </ItemGroup>
 </Project>
