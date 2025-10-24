@@ -180,7 +180,7 @@ public abstract class ServiceBase : DisposeBase
     protected virtual void ProcessMenu(String[] args)
     {
         var service = this;
-        //var name = ServiceName;
+        var name = ServiceName;
         //var args = Environment.GetCommandLineArgs();
         while (true)
         {
@@ -224,7 +224,7 @@ public abstract class ServiceBase : DisposeBase
     /// <summary>显示菜单</summary>
     protected virtual void ShowMenu()
     {
-        var name = ServiceName;
+        //var name = ServiceName;
 
         var color = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
