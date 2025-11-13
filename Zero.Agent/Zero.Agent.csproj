@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyTitle>系统守护服务</AssemblyTitle>
     <Description>数据处理，定时任务，MQ生产消费，系统监控</Description>
     <Company>湖北登灏科技有限公司</Company>
