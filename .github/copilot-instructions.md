@@ -29,15 +29,31 @@
 8) 提交 → 统一格式，整理中文提交日志；禁止夹带无关格式化
 
 ## 5. 编码规范
-- 语言：`<LangVersion>latest</LangVersion>`，使用最新C#语法特性。
-- 命名：类型/公共成员 PascalCase；参数/局部 camelCase；私有字段 `_xxx`（且字段应紧邻其对应的属性之前，见下述“就近规则”）。
-- 类型名用 .NET 正式名（`String`/`Int32`），避免别名。
+
+### 5.0 基础规范
+
+| 项目 | 规范 |
+|------|------|
+| 语言版本 | `<LangVersion>latest</LangVersion>`，所有目标框架均使用最新 C# 语法 |
+| 命名空间 | file-scoped namespace |
+| 类型名 | **必须**使用 .NET 正式名 `String`/`Int32`/`Boolean` 等，避免 `string`/`int`/`bool` |
+| 单文件 | 每文件一个主要公共类型；较大平台差异使用 `partial` |
+
+**命名规范**：
+
+| 成员类型 | 命名规则 | 示例 |
+|---------|---------|------|
+| 类型/公共成员 | PascalCase | `UserService`、`GetName()` |
+| 参数/局部变量 | camelCase | `userName`、`count` |
+| 私有字段（实例/静态） | `_camelCase` | `_cache`、`_instance` |
+| 属性/方法（实例/静态） | PascalCase | `Name`、`Default`、`Create()` |
+| 扩展方法类 | `xxxHelper` 或 `xxxExtensions` | `StringHelper`、`CollectionExtensions` |
+
+**代码风格**：
 - 单行 if：仅单语句同一行；多分支单语句不加花括号。
-- 循环（`for/foreach/while/do`）即使循环体当前只有单一语句，也必须保留 `{}` 花括号（除非原始代码本就无括号），避免未来增量导致隐藏逻辑或合并冲突；禁止为所谓“简洁”而移除。
-- 每文件一个主要公共类型；平台差异使用 `partial`。
+- 循环（`for/foreach/while/do`）即使循环体当前只有单一语句，也必须保留 `{}` 花括号（除非原始代码本就无括号），避免未来增量导致隐藏逻辑或合并冲突；禁止为所谓"简洁"而移除。
 - 忌全量重排、无差异格式化提交。
 - Linq、反射仅用于非高频路径；热点使用手写循环/缓存。
-- 使用 file-scoped namespace。
 - 禁止擅自删除已有代码注释（含单行 // 与 XML 文档注释），可以修改或追加；禁止单独“清理”一片注释块或仅删除空白行来制造差异。
 - 不得仅为对齐或所谓美观批量移除、合并空白行；保留有意的逻辑分隔空行。仅在同一局部有真实代码增删且需要保持统一时才可适度调整。
 
@@ -50,8 +66,57 @@
 - 合理例外：如会导致重复声明、闭包捕获或影响性能/生命周期，可权衡位置并加简短注释。
 
 冲突时以“易读易懂”为先。
+### 5.2 Region 组织结构
 
-### 5.2 现代 C# 语法偏好（优先）
+较长的类使用 `#region` 分段组织，遵循以下顺序：
+
+```csharp
+public class MyService : DisposeBase
+{
+    #region 属性
+    /// <summary>名称</summary>
+    public String Name { get; set; }
+
+    /// <summary>是否启用</summary>
+    public Boolean Enabled { get; set; }
+
+    // 私有字段放在属性段末尾
+    private ConcurrentDictionary<String, Object> _cache = new();
+    private TimerX? _timer;
+    #endregion
+
+    #region 构造
+    /// <summary>实例化</summary>
+    public MyService() { }
+
+    /// <summary>销毁资源</summary>
+    /// <param name="disposing">是否释放托管资源</param>
+    protected override void Dispose(Boolean disposing)
+    {
+        base.Dispose(disposing);
+        _timer.TryDispose();
+    }
+    #endregion
+
+    #region 方法
+    /// <summary>启动服务</summary>
+    public void Start() { }
+    #endregion
+
+    #region 辅助
+    /// <summary>日志</summary>
+    public ILog Log { get; set; } = Logger.Null;
+
+    /// <summary>写日志</summary>
+    /// <param name="format">格式化字符串</param>
+    /// <param name="args">参数</param>
+    protected void WriteLog(String format, params Object[] args) => Log?.Info(format, args);
+    #endregion
+}
+```
+
+**Region 顺序**：`属性` → `静态`（如有）→ `构造` → `方法` → `辅助`/`日志`
+### 5.3 现代 C# 语法偏好（优先）
 
 - 使用 switch 表达式与模式匹配（含 relational、logical、property/positional patterns）。
 - 使用集合表达式与简化初始化（C# 12）：`[]`、`[..spread]`、`"key" => value`。
@@ -64,9 +129,9 @@
 // 文件作用域命名空间
 namespace Demo;
 
-public readonly record struct User(string Name, int Age);
+public readonly record struct User(String Name, Int32 Age);
 
-static string Describe(int code) => code switch
+static String Describe(Int32 code) => code switch
 {
         200 => "OK",
         >= 400 and < 500 => "ClientError",
@@ -76,61 +141,220 @@ static string Describe(int code) => code switch
 
 // 集合表达式（C# 12）
 var baseList = [1, 2, 3];
-List<int> list = [..baseList, 4];
-Dictionary<string, int> map = ["a" => 1, "b" => 2];
+List<Int32> list = [..baseList, 4];
+Dictionary<String, Int32> map = ["a" => 1, "b" => 2];
 
 // 目标类型 new 与 using 声明
 using var ms = new MemoryStream();
 List<User> users = [];
 ```
 
+### 5.4 多目标框架支持
+
+项目支持 `net45` 到 `net10.0`，使用条件编译处理 API 差异：
+
+```csharp
+// 常用条件符号
+#if NETFRAMEWORK          // net45/net461/net462
+#if NETSTANDARD2_0        // netstandard2.0
+#if NETCOREAPP            // netcoreapp3.1+
+#if NET5_0_OR_GREATER     // net5.0+
+#if NET6_0_OR_GREATER     // net6.0+
+#if NET8_0_OR_GREATER     // net8.0+
+```
+
+**注意**：新增 API 时需评估各框架兼容性，必要时提供降级实现。
+
 ## 6. 文档注释
-- `public` / `protected` 必须具备注释：`<summary>` 单行简洁；详细描述放 `<remarks>`；补充 `<param>` `<returns>`。
-- `<summary>` 与 `</summary>` 必须在同一行，示例：`<summary>开始服务</summary>`；除非内容确需多段落，非必要不得使用三行（上下各独立）格式。
-- 示例可裁剪；避免泄露密钥、真实内部地址。
-- `[Obsolete]` 成员必须含迁移建议。
-- 中文优先，必要时补精简英文（同一 `<remarks>`）。
+
+| 规则 | 说明 |
+|------|------|
+| `<summary>` | **必须同一行闭合**，简短描述方法用途 |
+| `<param>` | **必须为每个参数添加**，无论方法可见性如何 |
+| `<returns>` | 有返回值时必须添加 |
+| `<remarks>` | 复杂方法可增加详细说明（可多行） |
+| 覆盖范围 | `public`/`protected` 成员必须注释，包括构造函数；`private`/`internal` 方法建议添加 |
+| `[Obsolete]` | 必须包含迁移建议 |
+| 语言 | 中文优先，必要时补精简英文（同一 `<remarks>`） |
+
+### 6.1 注释完整性检查清单
+
+生成或修改方法注释时，**必须逐项检查**：
+
+1. ✅ `<summary>` 是否单行闭合？
+2. ✅ 是否为**每个参数**都添加了 `<param>`？
+3. ✅ 有返回值时是否添加了 `<returns>`？
+4. ✅ 泛型方法是否添加了 `<typeparam>`？
+
+**正确示例**：
+```csharp
+/// <summary>获取或设置名称</summary>
+public String Name { get; set; }
+
+/// <summary>创建客户端连接</summary>
+/// <param name="host">服务器地址</param>
+/// <param name="port">端口号</param>
+/// <returns>客户端实例</returns>
+public TcpClient Create(String host, Int32 port) { }
+
+/// <summary>启动服务</summary>
+/// <remarks>
+/// 启动后将开始监听端口，支持多次调用（幂等）。
+/// 建议在应用启动时调用一次。
+/// </remarks>
+public void Start() { }
+
+/// <summary>映射配置到对象</summary>
+/// <param name="reader">Xml读取器</param>
+/// <param name="section">目标配置节</param>
+private void ReadNode(XmlReader reader, IConfigSection section) { }
+```
+
+**错误示例**（禁止）：
+```csharp
+// ❌ summary 拆成多行
+/// <summary>
+/// 获取或设置名称
+/// </summary>
+public String Name { get; set; }
+
+// ❌ 缺少参数注释（即使是私有方法也不允许）
+/// <summary>创建客户端连接</summary>
+public TcpClient Create(String host, Int32 port) { }
+
+// ❌ 有参数但没有 param 标签
+/// <summary>递归读取节点</summary>
+private void ReadNode(XmlReader reader, IConfigSection section) { }
+```
 
 ## 7. 异步与性能
-- 异步方法后缀 `Async`；禁止伪异步包装。
-- 库内部默认 `ConfigureAwait(false)`。
-- 高频路径优先：对象池 / `ArrayPool<T>` / `Span`；避免多余分配与装箱。
-- 禁止在热点引入未缓存反射 / 动态 / 复杂 Linq。
-- 池化资源：明确获取/归还；异常分支不遗失归还。
+
+| 规范 | 说明 |
+|------|------|
+| 方法命名 | 异步方法后缀 `Async` |
+| ConfigureAwait | 库内部默认 `ConfigureAwait(false)` |
+| 高频路径 | 优先对象池/`ArrayPool<T>`/`Span`，避免多余分配 |
+| 反射/Linq | 仅用于非热点路径；热点使用手写循环/缓存 |
+| 池化资源 | 明确获取/归还；异常分支不遗失归还 |
+
+### 内置工具优先
+
+```csharp
+// ✅ 使用 Pool.StringBuilder 避免频繁分配
+var sb = Pool.StringBuilder.Get();
+sb.Append("Hello");
+return sb.Return(true);
+
+// ✅ 使用 Runtime.TickCount64 避免时间回拨
+var tick = Runtime.TickCount64;
+
+// ✅ 使用扩展方法进行类型转换
+var num = str.ToInt();
+var flag = str.ToBoolean();
+```
 
 ## 8. 日志与追踪
-- 支持注入：`ILog Log`，可选 `ITracer Tracer`。
-- 关键过程建 Tracer?.NewSpan 埋点；异常标记错误标签。
+
+```csharp
+#region 辅助
+/// <summary>日志</summary>
+public ILog Log { get; set; } = Logger.Null;
+
+/// <summary>链路追踪</summary>
+public ITracer? Tracer { get; set; }
+
+/// <summary>写日志</summary>
+/// <param name="format">格式化字符串</param>
+/// <param name="args">参数</param>
+protected void WriteLog(String format, params Object?[] args) => Log?.Info(format, args);
+#endregion
+
+// ✅ 关键过程埋点（简易版，不关注异常）
+using var span = Tracer?.NewSpan("ProcessData");
+// 业务逻辑
+
+// ✅ 关键过程埋点（标准版，需要捕获异常）
+using var span = Tracer?.NewSpan("ProcessData");
+try
+{
+    // 业务逻辑
+}
+catch (Exception ex)
+{
+    span?.SetError(ex, null);
+    throw;
+}
+```
 
 ## 9. 错误处理
-- 精准异常类型；避免未处理直接 `throw;`。
-- 参数校验：空 / 越界 / 格式。
-- 不用异常作常规分支 → 提供 `TryXxx`。
-- 对外异常信息不含内部实现/路径。
-- 类型转换优先现有扩展：`ToInt` / `ToBoolean` 等。
+
+- **精准异常类型**：`ArgumentNullException`/`InvalidOperationException` 等
+- **参数校验**：空/越界/格式
+- **TryXxx 模式**：不用异常作常规分支
+- **类型转换**：优先使用 `ToInt()`/`ToBoolean()` 等扩展方法
+- **对外异常**：不暴露内部实现/路径
 
 ## 10. 测试
-- 框架：xUnit；命名 `{ClassName}Tests`。
-- `[DisplayName]` 中文描述意图；断言语义清晰。
-- IO 用临时目录；端口用 0 / 随机。
-- 覆盖：正常 / 边界 / 异常 / 并发竞争（必要时）。
-- 性能敏感代码：最小基准验证或引用基线结果（不伪造数据）。
-- 选择性执行：默认仅运行与改动相关的测试；优先在当前解决方案中检索 `{ClassName}` 的引用，若引用落入单元测试（测试项目或测试目录）则运行这些测试；若未命中，再在解决方案内查找 `{ClassName}Tests.cs`（如 `SpanReader` ↔ `SpanReaderTests.cs`）。
-- 未发现相关测试：在结果中明确说明“未匹配到相关测试”，且不自动创建/引入测试项目。
 
-## 11. Copilot 使用守则
-- 仅回答开发相关；非开发 → “我是编程助手”。
-- 输出前检索；禁止重复造轮子。
+| 项目 | 规范 |
+|------|------|
+| 框架 | xUnit |
+| 命名 | `{ClassName}Tests` |
+| 描述 | `[DisplayName("中文描述意图")]` |
+| IO | 使用临时目录；端口用 0/随机 |
+| 覆盖 | 正常/边界/异常/并发（必要时） |
+
+### 测试执行策略
+
+1. 优先检索 `{ClassName}` 引用，若落入测试项目则运行
+2. 未命中则查找 `{ClassName}Tests.cs`
+3. **未发现相关测试需明确说明**，不自动创建测试项目
+
+## 11. NuGet 发布规范
+
+| 类型 | 命名规则 | 示例 |
+|------|---------|------|
+| 正式版 | `{主版本}.{子版本}.{年}.{月日}` | `11.9.2025.0701` |
+| 测试版 | `{主版本}.{子版本}.{年}.{月日}-beta{时分}` | `11.9.2025.0701-beta0906` |
+
+- **正式版**：每月月初发布
+- **测试版**：提交代码到 GitHub 时自动发布
+
+## 12. Copilot 使用守则
+
+### 必须
+
+- 简体中文回复
+- 输出前检索现有实现，**禁止重复造轮子**
+- 先列方案再实现
+- 标记不确定上下文为"需查看文件"
+
+### 禁止
+
+- 虚构 API/文件/类型
+- 伪造测试结果/性能数据
+- 擅自删除公共/受保护成员
+- 擅自删除已有代码注释
+- 仅删除空白行制造"格式优化"提交
+- 删除循环体的花括号
+- 将 `<summary>` 拆成多行
+- 将 `String`/`Int32` 改为 `string`/`int`
+- 新增外部依赖（除非说明理由并给出权衡）
+- 在热点路径添加未缓存反射/复杂 Linq
+- 输出敏感凭据/内部地址
+
+### 行为规范
+
+- 仅回答开发相关；非开发 → "我是编程助手"。
 - 不生成超出需求的大块模板，先列方案再实现。
-- 不新增外部依赖（除非说明内置不足并给出权衡）。
-- 遇不确定上下文 → 标记“需查看文件”。
-- 不伪造：测试结果 / 性能数据 / 外部调用。
-- 回答或修改代码时，不得移除已有注释文本，可以修改或追加；不得单独删除整段注释或仅删除空白行制造“格式优化”式提交。
+- 遇不确定上下文 → 标记"需查看文件"。
+- 回答或修改代码时，不得移除已有注释文本，可以修改或追加；不得单独删除整段注释或仅删除空白行制造"格式优化"式提交。
 - 进行循环、控制流结构调整时，若原代码含循环花括号（即便单语句体），须保留，不得擅自移除。
 - 修改或提交代码后，需自动在本地运行与改动相关的单元测试并确保通过；若无法定位相关测试，再运行最小必要集合或全部；若未找到任何测试，需在结果中明确说明且不自动新增测试项目。
 - 生成文档：未特别指明时，默认以 Markdown（.md）格式输出，并使用 UTF-8 编码。
 
-## 12. 变更与审核说明
+## 13. 变更与审核说明
+
 提交或答复需包含：
 - 概述：做了什么 / 为什么
 - 影响：公共 API？性能？
@@ -138,7 +362,8 @@ List<User> users = [];
 - 风险：潜在回归 / 性能开销
 - 后续：是否补测试 / 文档
 
-## 13. 禁止清单
+## 14. 禁止清单
+
 - 虚构 API / 文件 / 类型
 - 未检索即重写或重复实现
 - 擅自删除公共 / 受保护成员
@@ -151,10 +376,11 @@ List<User> users = [];
 - 强行异步化纯同步逻辑
 - 大面积格式化无业务价值
 - 擅自删除已有代码注释
-- 仅删除或合并空白行以制造“变化”
+- 仅删除或合并空白行以制造"变化"
 - 删除已有 `for/foreach/while/do` 单行循环体的花括号
 
-## 14. 术语说明
+## 15. 术语说明
+
 - 热点路径：经性能分析或高频调用栈确认的关键执行段。
 - 基线：变更前的功能/性能参考数据。
 

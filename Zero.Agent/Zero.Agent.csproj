@@ -6,8 +6,8 @@
     <AssemblyTitle>系统守护服务</AssemblyTitle>
     <Description>数据处理，定时任务，MQ生产消费，系统监控</Description>
     <Company>湖北登灏科技有限公司</Company>
-    <Copyright>©2020-2024 湖北登灏科技有限公司</Copyright>
-    <VersionPrefix>1.0</VersionPrefix>
+    <Copyright>©2020-2026 湖北登灏科技有限公司</Copyright>
+    <VersionPrefix>4.17</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
     <FileVersion>$(Version)</FileVersion>
@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.NCode" Version="4.16.2025.1225-beta0923" />
-    <PackageReference Include="DH.NStardust" Version="4.16.2025.1113" />
+    <PackageReference Include="DH.NCode" Version="4.17.2026.106-beta0911" />
+    <PackageReference Include="DH.NStardust" Version="4.16.2025.1230-beta0239" />
   </ItemGroup>
 
   <ItemGroup>
