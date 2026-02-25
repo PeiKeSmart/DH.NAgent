@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.NStardust.Extensions" Version="4.17.2026.130-beta0900" />
+    <PackageReference Include="DH.NStardust.Extensions" Version="4.18.2026.210" />
   </ItemGroup>
 
   <ItemGroup>
