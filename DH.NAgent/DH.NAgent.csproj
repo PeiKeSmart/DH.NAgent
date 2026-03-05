@@ -4,8 +4,8 @@
     <TargetFrameworks>net45;net461;netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <AssemblyName>DH.NAgent</AssemblyName>
     <RootNamespace>NewLife.Agent</RootNamespace>
-    <AssemblyTitle>服务管理</AssemblyTitle>
-    <Description>应用程序注册为系统服务，支持Windows/Linux</Description>
+    <AssemblyTitle>跨平台服务守护</AssemblyTitle>
+    <Description>跨平台系统服务与守护进程管理框架，支持安装、监控与自动重启。</Description>
     <Company>湖北登灏科技有限公司</Company>
     <Copyright>©2020-2026 湖北登灏科技有限公司</Copyright>
     <VersionPrefix>4.21</VersionPrefix>
