@@ -55,6 +55,9 @@
     <Compile Remove="IHostedService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WebPanel\wwwroot\index.html" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="..\Doc\DH.png" Link="DH.png" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
