@@ -8,7 +8,7 @@
     <Description>跨平台系统服务与守护进程管理框架，支持安装、监控与自动重启。</Description>
     <Company>湖北登灏科技有限公司</Company>
     <Copyright>©2020-2026 湖北登灏科技有限公司</Copyright>
-    <VersionPrefix>4.21</VersionPrefix>
+    <VersionPrefix>4.24</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
     <FileVersion>$(Version)</FileVersion>
@@ -33,7 +33,7 @@
     <RepositoryUrl>https://github.com/PeiKeSmart/DH.NAgent</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>湖北登灏科技有限公司;DH组件;DH;$(AssemblyName)</PackageTags>
-    <PackageReleaseNotes>新增Desktop，支持Windows后台服务在用户会话打开应用；重构菜单架构；增强Systemd支持更多参数设置</PackageReleaseNotes>
+    <PackageReleaseNotes>新增轻量级 Web 管理面板，支持浏览器查看服务状态与运维操作；支持扩展面板注册与多主题切换；ApiController 统一 API 路由处理；Web 面板内置 Token 鉴权机制；升级 NewLife.Core 至最新版本</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

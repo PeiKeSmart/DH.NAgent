@@ -7,7 +7,7 @@
     <Description>为ASP.NET Core与Worker提供Agent托管集成，支持服务化部署与运维。</Description>
     <Company>湖北登灏科技有限公司</Company>
     <Copyright>©2020-2026 湖北登灏科技有限公司</Copyright>
-    <VersionPrefix>4.21</VersionPrefix>
+    <VersionPrefix>4.24</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
     <FileVersion>$(Version)</FileVersion>
@@ -32,7 +32,7 @@
     <RepositoryUrl>https://github.com/PeiKeSmart/DH.NAgent</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>湖北登灏科技有限公司;DH组件;DH;$(AssemblyName)</PackageTags>
-    <PackageReleaseNotes>支持Web、WebApi和Worker等现代化项目</PackageReleaseNotes>
+    <PackageReleaseNotes>新增轻量级 Web 管理面板，支持浏览器查看服务状态与运维操作；升级 至最新版本</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
