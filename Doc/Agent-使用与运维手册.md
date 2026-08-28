@@ -1,14 +1,14 @@
-# DH.NAgent 使用与运维手册
+# NewLife.Agent 使用与运维手册
 
 ## 文档说明
 
-本文档汇总 `DH.NAgent` 与 `NewLife.Extensions.Hosting.AgentService` 的核心能力、架构设计与使用方法。
+本文档汇总 `NewLife.Agent` 与 `NewLife.Extensions.Hosting.AgentService` 的核心能力、架构设计与使用方法。
 
-> 分析范围说明：遵循 `DH.NAgent.csproj` 已排除项，不包含 `BackgroundService.cs`、`IHostedService.cs`，且不分析 `bin/obj` 目录产物。
+> 分析范围说明：遵循 `NewLife.Agent.csproj` 已排除项，不包含 `BackgroundService.cs`、`IHostedService.cs`，且不分析 `bin/obj` 目录产物。
 
 ## 目录
 
-- [DH.NAgent 使用与运维手册](#newlifeagent-使用与运维手册)
+- [NewLife.Agent 使用与运维手册](#newlifeagent-使用与运维手册)
   - [文档说明](#文档说明)
   - [目录](#目录)
   - [产品概述](#产品概述)
@@ -67,7 +67,7 @@
 ---
 ## 产品概述
 
-`DH.NAgent` 是“服务开发基类 + 跨平台宿主 + 运维命令体系”的统一框架，面向长期运行应用（控制台/Web/Worker/数据处理服务）提供标准化服务治理能力。
+`NewLife.Agent` 是“服务开发基类 + 跨平台宿主 + 运维命令体系”的统一框架，面向长期运行应用（控制台/Web/Worker/数据处理服务）提供标准化服务治理能力。
 
 ### 核心价值
 
@@ -182,7 +182,7 @@
 ---
 ## 命令系统与交互菜单
 
-`DH.NAgent` 内置“命令行 + 菜单”双模式，满足自动化脚本与人工运维两类场景。
+`NewLife.Agent` 内置“命令行 + 菜单”双模式，满足自动化脚本与人工运维两类场景。
 
 ### 命令执行架构
 
@@ -196,16 +196,18 @@
 
 | 命令 | 说明 |
 |---|---|
-| `-install` | 安装服务 |
-| `-uninstall` / `-remove` | 卸载服务 |
+| `-i` | 安装服务 |
+| `-install` | 安装并启动服务（组合命令） |
+| `-u` | 卸载服务 |
+| `-uninstall` | 停止并卸载服务（组合命令） |
+| `-reinstall` | 重新安装（停止→卸载→安装→启动） |
 | `-start` | 启动服务 |
 | `-stop` | 停止服务 |
 | `-restart` | 重启服务 |
 | `-status` | 查看状态 |
 | `-run` | 当前进程模拟运行（调试） |
-| `-watchdog` | 立即执行一次看门狗检查 |
-| `-installstart` | 安装并启动（组合命令） |
-| `-reinstall` | 重新安装 |
+| `-s` | 执行服务（由系统服务管理器调用，非手动使用） |
+| `-watch` | 立即执行一次看门狗检查 |
 
 ### 交互菜单
 
