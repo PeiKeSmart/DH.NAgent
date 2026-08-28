@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DH.NCube.Core" Version="4.11.2025.826-beta0719" />
-    <PackageReference Include="DH.NStardust" Version="4.21.2026.326-beta0835" />
+    <PackageReference Include="DH.NCube.Core" Version="4.22.2026.516-beta1022" />
+    <PackageReference Include="DH.NStardust" Version="4.24.2026.707-beta1531" />
   </ItemGroup>
 
   <ItemGroup>
