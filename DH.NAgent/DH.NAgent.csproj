@@ -19,7 +19,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoWarn>1701;1702;NU5104;NETSDK1138;CS7035</NoWarn>
+    <NoWarn>1701;1702;NU5104;NETSDK1138;CS7035;NU1903</NoWarn>
     <AnalysisLevel>latest</AnalysisLevel>
     <WarningsAsErrors>CA2007</WarningsAsErrors>
   </PropertyGroup>
