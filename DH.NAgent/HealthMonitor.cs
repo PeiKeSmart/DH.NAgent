@@ -1,4 +1,4 @@
-﻿namespace NewLife.Agent;
+namespace NewLife.Agent;
 
 /// <summary>健康监控。封装服务健康检查的纯逻辑判断，供 <see cref="ServiceBase"/> 调用，可独立测试</summary>
 /// <remarks>

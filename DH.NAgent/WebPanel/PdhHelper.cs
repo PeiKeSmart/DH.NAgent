@@ -1,4 +1,4 @@
-﻿#if !NET40
+#if !NET40
 using System.Runtime.InteropServices;
 
 namespace NewLife.Agent.WebPanel;

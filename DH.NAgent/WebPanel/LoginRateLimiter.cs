@@ -1,4 +1,4 @@
-﻿#if !NET40
+#if !NET40
 using System.Collections.Concurrent;
 
 namespace NewLife.Agent.WebPanel;

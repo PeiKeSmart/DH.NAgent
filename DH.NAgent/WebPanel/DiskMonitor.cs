@@ -1,8 +1,7 @@
-﻿#if !NET40
+#if !NET40
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using NewLife;
-using NewLife.Net;
 
 namespace NewLife.Agent.WebPanel;
 

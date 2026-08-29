@@ -1,4 +1,4 @@
-﻿namespace NewLife.Agent.WebPanel;
+namespace NewLife.Agent.WebPanel;
 
 /// <summary>Web面板扩展信息，用户可通过继承AgentWebPanel并重写GetExtensions注册自定义面板</summary>
 public class PanelExtension
