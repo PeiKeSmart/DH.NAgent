@@ -16,6 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -27,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DH.NAgent\DH.NAgent.csproj" />
+    <ProjectReference Include="..\DH.Extensions.Hosting.AgentService\DH.Extensions.Hosting.AgentService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

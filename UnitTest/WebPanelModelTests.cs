@@ -1,4 +1,4 @@
-﻿#if !NET40
+#if !NET40
 using System.ComponentModel;
 using NewLife.Agent.WebPanel;
 

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using Moq;
 using NewLife.Agent;
 using NewLife.Agent.CommandHandler;
