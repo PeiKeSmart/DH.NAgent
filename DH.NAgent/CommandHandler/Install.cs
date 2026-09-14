@@ -43,11 +43,14 @@ public class Install : BaseCommandHandler
             if (!dll.Contains(".dll"))//没有获得到主程的dll
             {
                 dll = Environment.CommandLine?.Split(' ')[0];//Assembly.GetExecutingAssembly().Location;
+
+                // .NET 11 起，apphost 启动时命令行首参数返回 exe 路径，而 .NET 10 及以前返回主程 dll 路径
+                if (dll.IsNullOrEmpty() || !dll.Contains(".dll")) dll = System.Reflection.Assembly.GetEntryAssembly()?.Location;
             }
 
-            if (dll.Contains(' ')) dll = $"\"{dll}\"";
+            if (dll != null && dll.Contains(' ')) dll = $"\"{dll}\"";
 
-            if (fileName.IsRuntime())
+            if (fileName.IsRuntime() && !dll.IsNullOrEmpty())
                 exe += " " + dll;
             else if (fileName.EqualIgnoreCase("mono", "mono.exe", "mono-sgen"))
                 exe = dll;
